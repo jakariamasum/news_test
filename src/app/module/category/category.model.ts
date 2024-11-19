@@ -9,6 +9,7 @@ const CategorySchema = new Schema<TCategory>(
     img: { type: String },
     position: { type: Number },
     type: { type: String },
+    isDeleted: { type: Boolean, default: false },
   },
   {
     timestamps: true,

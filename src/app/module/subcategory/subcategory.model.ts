@@ -23,6 +23,7 @@ const subCategorySchema = new Schema<TSubCategory>({
     required: true,
   },
   type: { type: String, required: true },
+  isDeleted: { type: Boolean, default: false },
 });
 
 export const SubCategory = model<TSubCategory>(

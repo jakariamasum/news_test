@@ -9,9 +9,9 @@ const createCategoryIntoDB = async (payload: TCategory) => {
 const getCategoriesFromDB = async (lang?: string) => {
   let result;
   if (lang === "all") {
-    result = await Category.find();
+    result = await Category.find({ isDeleted: false });
   } else {
-    result = await Category.find({ type: "news" });
+    result = await Category.find({ type: "news", isDeleted: false });
   }
   return result;
 };
@@ -19,16 +19,16 @@ const getCategoriesByLangFromDB = async (lang: string) => {
   console.log(lang);
   let result;
   if (lang === "all") {
-    result = await Category.find({ type: "news" });
+    result = await Category.find({ type: "news", isDeleted: false });
   } else if (lang === "story" || lang === "video") {
-    result = await Category.find({ type: lang });
+    result = await Category.find({ type: lang, isDeleted: false });
   } else {
-    result = await Category.find({ lang, type: "news" });
+    result = await Category.find({ lang, type: "news", isDeleted: false });
   }
   return result;
 };
 const getVideoOrStoriesCategoryFromDB = async (type: string) => {
-  const result = await Category.find({ type: type });
+  const result = await Category.find({ type: type, isDeleted: false });
   return result;
 };
 const getSingleCategoryFromDB = async (id: string) => {
@@ -46,7 +46,11 @@ const updateCategoryIntoDB = async (
 };
 
 const deleteCategoryFromDB = async (id: string) => {
-  const result = await Category.findByIdAndDelete({ _id: id });
+  const result = await Category.findByIdAndUpdate(
+    { _id: id },
+    { isDeleted: true },
+    { new: true }
+  );
   return result;
 };
 

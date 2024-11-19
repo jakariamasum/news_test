@@ -5,4 +5,5 @@ export type TCategory = {
   position?: number;
   img?: string;
   type: string;
+  isDeleted: boolean;
 };

@@ -7,4 +7,5 @@ export type TSubCategory = {
   img?: string;
   lang: string;
   type: string;
+  isDeleted: boolean;
 };
